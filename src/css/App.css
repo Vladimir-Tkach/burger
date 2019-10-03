@@ -1,4 +1,17 @@
 .App {
+  position: relative;
+  display: flex;
+  width: 100%;
+  text-align: center;
+  color: blue;
+  font-size: 25px;
+  font-weight: bold;
+}
+.header_title{
+  font-size: 18px;
+  color: black;
+  font-weight: 300;
+  text-transform: uppercase;
   text-align: center;
 }
 

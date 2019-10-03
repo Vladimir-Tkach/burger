@@ -1,0 +1,11 @@
+.basket_wrapper{
+    border: 2px solid darkorange;
+    width: 100%;
+    min-height: 300px;
+
+}
+.basket_list_header{
+    display: flex;
+    justify-content: space-around;
+    font-size: 20px;
+}

@@ -1,25 +1,38 @@
-import React, {Component} from 'react';
-import '../css/Basket.css';
+/* eslint-disable react/prop-types */
+import React, { Component } from 'react'
+import BasketItem from './BasketItem'
+import '../css/Basket.css'
 
-class Basket extends  Component{
+class Basket extends Component {
 
-    render(){
-        console.log(this.props.basket);
-        return(
-            <div className='basket_wrapper'>
-                <h3>Корзина</h3>
-                <div className='basket_list'>
-                    <div className='basket_list_header'>
-                        <span>Название</span>
-                        <span>Количество</span>
-                    </div>
-                    <div className='basket_list_body'>
+  render () {
+	let basketList = [];
 
-                    </div>
-                </div>
-            </div>
-        )
-    }
+	for (let key in this.props.basket){
+		if(key !== 'total'){
+			let item = <BasketItem key={basketList.length} name={key} amount={this.props.basket[key]} deleteFromBasket={this.props.deleteFromBasket}/>
+			basketList.push(item);
+		}
+	}
+
+	console.log(this.props.basket)
+
+    return (
+		
+      <div className='basket_wrapper'>
+        <h3>Корзина</h3>
+        <div className='basket_list'>
+          <div className='basket_list_header'>
+            <span>Название</span>
+            <span>Количество</span>
+          </div>
+          <div className='basket_list_body'>
+			{basketList}
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 
-export default Basket;
+export default Basket

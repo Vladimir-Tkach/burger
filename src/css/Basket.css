@@ -1,7 +1,9 @@
 .basket_wrapper{
     border: 2px solid darkorange;
     width: 100%;
-    min-height: 300px;
+	min-height: 300px;
+	position: sticky;
+	top: 0;
 
 }
 .basket_list_header{

@@ -32,8 +32,8 @@ class ItemMenu extends Component{
         // console.log(this.props);
         return(
             <div className='item_menu_wrapper'>
-                <img src='/i/markets/12.png' className='item_menu_logo' title='Item Logo'/>
-                <img src='/i/pizza/1.jpg' className='item_menu_img' alt='Item Img' />
+                <img src='/i/markets/south_fried_chicken.png' className='item_menu_logo' title='Item Logo'/>
+                <img src={this.props.itemdata.image} className='item_menu_img' alt='Item Img' />
                 <div className='item_menu_name'>{this.props.itemdata.name}</div>
                 <div className='item_menu_description'>{this.props.itemdata.description}</div>
 

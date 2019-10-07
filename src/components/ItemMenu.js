@@ -26,7 +26,7 @@ class ItemMenu extends Component {
   }
 
   change (event) {
-    this.setState({ amount: event.target.value })
+    this.setState({ amount: +event.target.value})
   }
 
   render () {

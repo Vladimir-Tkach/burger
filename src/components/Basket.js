@@ -28,7 +28,7 @@ class Basket extends Component {
             <span>Количество</span>
           </div>
           <div className='basket_list_body'>
-			{basketList}
+			      {basketList}
           </div>
           <h3>Total: {this.props.basket.total}</h3>
         </div>

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
+
 import '../css/ItemMenu.css'
 
 class ItemMenu extends Component {
@@ -32,7 +33,7 @@ class ItemMenu extends Component {
     // console.log(this.props);
     return (
       <div className='item_menu_wrapper'>
-        <img src='/i/markets/south_fried_chicken.png' className='item_menu_logo' title='Item Logo'/>
+        <img src={this.props.logoUrl} className={this.props.logoUrl === '' ? 'hidden' : 'item_menu_logo'} title='Item Logo' alt='Item Logo'/>
         <img src={this.props.itemdata.image} className='item_menu_img' alt='Item Img' />
         <div className='item_menu_name'>{this.props.itemdata.name}</div>
         <div className='item_menu_description'>{this.props.itemdata.description}</div>

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
+
 import BasketItem from './BasketItem'
 import '../css/Basket.css'
 
@@ -10,7 +11,7 @@ class Basket extends Component {
 
 	for (let key in this.props.basket){
 		if(key !== 'total'){
-			let item = <BasketItem key={basketList.length} name={key} amount={this.props.basket[key]} deleteFromBasket={this.props.deleteFromBasket}/>
+			let item = <BasketItem key={basketList.length} name={key} amount={this.props.basket[key][1]} deleteFromBasket={this.props.deleteFromBasket}/>
 			basketList.push(item);
 		}
 	}
@@ -29,6 +30,7 @@ class Basket extends Component {
           <div className='basket_list_body'>
 			{basketList}
           </div>
+          <h3>Total: {this.props.basket.total}</h3>
         </div>
       </div>
     )

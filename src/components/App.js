@@ -1,5 +1,6 @@
 /* eslint-disable no-prototype-builtins */
 import React, { Component } from 'react'
+
 import '../css/App.css'
 import Menu from './Menu'
 import Basket from './Basket'
@@ -8,17 +9,18 @@ import Content from './Content'
 class App extends Component {
   constructor (props) {
     super(props)
+    
     this.state = {
       json: {},
       showCategory: 'pizza',
       basket: {
-		total: 0
-		}
+        total: 0,
+      }
     }
 
     this.selectCategory = this.selectCategory.bind(this)
-	this.addToBasket = this.addToBasket.bind(this)
-	this.deleteFromBasket = this.deleteFromBasket.bind(this)
+	  this.addToBasket = this.addToBasket.bind(this)
+	  this.deleteFromBasket = this.deleteFromBasket.bind(this)
   }
 
   selectCategory (nameCategory) {
@@ -26,27 +28,30 @@ class App extends Component {
   }
 
   addToBasket (nameProduct, amount, price) {
-    if (!this.state.basket.hasOwnProperty(nameProduct)) {
-		const newObj = { [nameProduct]: amount };
-		let basket = { ...this.state.basket, ...newObj };
-		basket.total = this.state.basket.total + amount * price;
-		this.setState({ basket });
+    let newbasketItem = {
+      [nameProduct]: [nameProduct, amount, price],
+      total: +this.state.basket.total + +amount * +price
+    }
+
+    if(!this.state.basket.hasOwnProperty(nameProduct)){
+      let basket = {...this.state.basket, ...newbasketItem}
+      this.setState({ basket })
     } else {
-		const newObj = { [nameProduct]: amount + this.state.basket[nameProduct] };
-		let basket = { ...this.state.basket, ...newObj };
-		basket.total = this.state.basket.total + amount * price;
-		this.setState({ basket });
+      newbasketItem[nameProduct][1] = this.state.basket[nameProduct][1] + amount
+      let basket = {...this.state.basket, ...newbasketItem}
+      this.setState({ basket })
     }
   }
 
 
   deleteFromBasket(nameProduct){
-
-	if(this.state.basket.hasOwnProperty(nameProduct)){
-		delete this.state.basket[nameProduct];
-		let basket = this.state.basket;
-		this.setState({ basket });
-	}
+    if(this.state.basket.hasOwnProperty(nameProduct)){
+      let amountOfDeletedItem = this.state.basket[nameProduct][1] * this.state.basket[nameProduct][2];
+      delete this.state.basket[nameProduct];
+      let basket = this.state.basket;
+      basket.total = basket.total - amountOfDeletedItem;
+      this.setState({ basket });
+    }
   }
 
 
@@ -66,7 +71,6 @@ class App extends Component {
             basket={this.state.basket}
             addToBasket={this.addToBasket}
           />
-
         </div>
       </div>
     )

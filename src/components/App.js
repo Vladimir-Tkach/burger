@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 
 import '../css/App.css'
-import Menu from './Menu'
+import MenuBlock from './Menu'
 import Basket from './Basket'
 import Content from './Content'
 
@@ -18,12 +18,12 @@ class App extends Component {
       }
     }
 
-    this.selectCategory = this.selectCategory.bind(this)
-	  this.addToBasket = this.addToBasket.bind(this)
-	  this.deleteFromBasket = this.deleteFromBasket.bind(this)
+  this.handleSwitcherCategory = this.handleSwitcherCategory.bind(this)
+	this.addToBasket = this.addToBasket.bind(this)
+	this.deleteFromBasket = this.deleteFromBasket.bind(this)
   }
 
-  selectCategory (nameCategory) {
+  handleSwitcherCategory (nameCategory) {
     this.setState({ showCategory: nameCategory })
   }
 
@@ -63,7 +63,7 @@ class App extends Component {
         </header>
         <div className="App">
           <nav>
-            <Menu func = {this.selectCategory} />
+            <MenuBlock handleSwitcherCategory = {this.handleSwitcherCategory} />
             <Basket basket={this.state.basket} deleteFromBasket={this.deleteFromBasket}/>
           </nav>
           <Content

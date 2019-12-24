@@ -1,33 +1,76 @@
-import React, { Component } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
+import { Menu } from 'antd'
 
 import '../css/Menu.css'
 
-class Menu extends Component {
-  // constructor(props){
-  //     super(props)
-  // }
+function MenuBlock (props) {
 
-  render () {
-    return (
-      <div className="menu_wrapper">
-        <ul className="menu_ul">
-          <li id='1' onClick={() => this.props.func('pizza')}>Блины</li>
-          <li id='2' onClick={() => this.props.func('shaurma')}>Шаурма</li>
-          <li id='3' onClick={() => this.props.func('sandwiches')}>Сендвичи</li>
-          <li id='4' onClick={() => this.props.func('burgers')}>Бургеры</li>
-          <li id='5' onClick={() => this.props.func('chicken')}>Курица & Картофель</li>
-          <li id='6' onClick={() => this.props.func('salads')}>Тортилья & салаты</li>
-          <li id='7' onClick={() => this.props.func('drinks')}>Напитки & Десерты</li>
-        </ul>
-      </div>
-    )
-  }
+  const { handleSwitcherCategory: onClick } = props;
+
+  return (
+    <div className="menu_wrapper">
+      <Menu
+        mode='inline'
+      >
+        <Menu.Item
+          key='1'
+          onClick={() => onClick('pizza')}
+        >
+          Блины
+        </Menu.Item>
+        
+        <Menu.Item
+          key='2'
+          onClick={() => onClick('shaurma')}
+        >
+          Шаурма
+        </Menu.Item>
+
+        <Menu.Item
+          key='3'
+          onClick={() => onClick('sandwiches')}
+        >
+          Сендвичи
+        </Menu.Item>
+
+        <Menu.Item
+          key='4'
+          onClick={() => onClick('burgers')}
+        >
+          Бургеры
+        </Menu.Item>
+
+        <Menu.Item
+          key='5'
+          onClick={() => onClick('chicken')}
+        >
+          Курица & Картофель
+        </Menu.Item>
+
+        <Menu.Item
+          key='6'
+          onClick={() => onClick('salads')}
+        >
+          Тортилья & салаты
+        </Menu.Item>
+
+        <Menu.Item
+          key='7'
+          onClick={() => onClick('drinks')}
+        >
+          Напитки & Десерты
+        </Menu.Item>
+
+      </Menu>
+    </div>
+  )
+
 }
 
 
-Menu.propTypes = {
-	func: propTypes.func.isRequired
+MenuBlock.propTypes = {
+	handleSwitcherCategory: propTypes.func.isRequired
 };
 
-export default Menu
+export default MenuBlock

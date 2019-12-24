@@ -1,60 +1,63 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Button, Icon } from 'antd'
 
 import '../css/ItemMenu.css'
 
-class ItemMenu extends Component {
-  constructor (props) {
-    super(props)
+function ItemMenu (props) {
+  const { logoUrl,  itemdata, addToBasket} = props;
 
-    this.state = {
-      defaultAmount: '1',
-      amount: 1
-    }
-    this.change = this.change.bind(this)
-  }
+  let [amount, setAmount] = useState(1);
+  let [logo, setlogo] = useState(logoUrl);
+  let [imageItemMenu, setImageItemMenu] = useState(itemdata.image);
+  let [nameItemMenu, setNameItemMenu] = useState(itemdata.name);
+  let [priceItemMenu, setPriceItemMenu] = useState(itemdata.price);
+  let [descriptionItemMenu, setDescriptionItemMenu] = useState(itemdata.description);
 
-  addAmount () {
-    this.setState({ amount: +this.state.amount + 1 })
-  }
+  useEffect(() => {
+    setlogo(logoUrl);
+    setImageItemMenu(itemdata.image);
+    setNameItemMenu(itemdata.name);
+    setPriceItemMenu(itemdata.price);
+    setDescriptionItemMenu(itemdata.description);
+  }, [logoUrl, itemdata.image, itemdata.name, itemdata.price, itemdata.description])
 
-  subAmount () {
-    if (this.state.amount === 0) {
-      return
-    }
-    this.setState({ amount: this.state.amount - 1 })
-  }
+  return (
+    <div className='item_menu_wrapper'>
+      <img src={logo} className={logo === '' ? 'hidden' : 'item_menu_logo'} title='Item Logo' alt='Item Logo'/>
+      <img src={imageItemMenu} className='item_menu_img' alt='Item Img' />
+      <div className='item_menu_name'>{nameItemMenu}</div>
+      <div className='item_menu_description'>{descriptionItemMenu}</div>
 
-  change (event) {
-    this.setState({ amount: +event.target.value})
-  }
+      <div>Цена: {priceItemMenu} руб.</div>
+      <span>Количество</span>
 
-  render () {
-    // console.log(this.props);
-    return (
-      <div className='item_menu_wrapper'>
-        <img src={this.props.logoUrl} className={this.props.logoUrl === '' ? 'hidden' : 'item_menu_logo'} title='Item Logo' alt='Item Logo'/>
-        <img src={this.props.itemdata.image} className='item_menu_img' alt='Item Img' />
-        <div className='item_menu_name'>{this.props.itemdata.name}</div>
-        <div className='item_menu_description'>{this.props.itemdata.description}</div>
+      <div className='item_menu_selectAmount'>
+        <Button 
+          shape="circle"
+          onClick={() => setAmount(++amount)} 
+        >
+          <Icon type='plus' />
+        </Button>
 
-        <div>Цена: {this.props.itemdata.price} руб.</div>
-        <span>Количество</span>
+        <input type="text" name="amount" id="input" value={amount} onChange={ e => { setAmount(e.target.value) } }/>
 
-        <div className='item_menu_selectAmount'>
-
-          <button onClick={() => this.addAmount()}>+</button>
-
-          <input type="text" name="amount" id="input" value={this.state.amount} onChange={this.change}/>
-
-          <button onClick={() => this.subAmount()}>-</button>
-        </div>
-
-        <button onClick={() => { this.props.addToBasket(this.props.itemdata.name, +this.state.amount, +this.props.itemdata.price) }}>В корзину</button>
+        <Button 
+          onClick={() => setAmount(--amount)} 
+        >
+          <Icon type='minus'/>
+        </Button>
       </div>
 
-    )
-  }
+      <Button 
+        onClick={() => { addToBasket(nameItemMenu, +amount, +priceItemMenu) }}
+      >
+      В корзину
+      </Button>
+    </div>
+
+  )
 }
 
 export default ItemMenu

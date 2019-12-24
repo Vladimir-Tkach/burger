@@ -25,11 +25,10 @@ class Content extends Component {
   }
 
   render () {
-    // console.log(this.props);
     const category = this.state.menu.filter(item => item.category === this.props.category)
 
     const items = category.map((item, index) => {
-    const logoUrl = item.market == 'subway' ? this.state.markets.subway.image : item.market == 'sfc' ? this.state.markets.sfc.image : item.market == 'doner' ? this.state.markets.doner.image : '';
+    const logoUrl = item.market === 'subway' ? this.state.markets.subway.image : item.market === 'sfc' ? this.state.markets.sfc.image : item.market === 'doner' ? this.state.markets.doner.image : '';
       return (
         <ItemMenu
           key={index}

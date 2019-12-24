@@ -1,19 +1,28 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react'
+import { Button, Typography } from 'antd'
+import React from 'react'
 
 import '../css/BasketItem.css'
 
-class BasketItem extends Component{
+function BasketItem (props){
 
-	render(){
-		return(
-			<div className='basket_list_item'>
-				<div className='basket_list_item_name'>{this.props.name}</div>
-				<div className='basket_list_item_amount'>{this.props.amount}</div>
-				<button onClick={() => this.props.deleteFromBasket(this.props.name)}>del</button>
-			</div>
-		)
-	}
+	const { Title } = Typography;
+
+	let { name, amount, deleteFromBasket } = props;
+
+	return(
+		<div className='basket_list_item'>
+			<Title level={4}>{name}</Title>
+			<Title level={4}>{amount}</Title>
+			<Button 
+				type='primary' 
+				size="large" 
+				onClick={() => deleteFromBasket(name)}
+				>delete
+			</Button>
+		</div>
+	)
+
 }
 
 export default BasketItem

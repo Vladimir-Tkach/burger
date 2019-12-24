@@ -11,12 +11,15 @@ class Basket extends Component {
 
 	for (let key in this.props.basket){
 		if(key !== 'total'){
-			let item = <BasketItem key={basketList.length} name={key} amount={this.props.basket[key][1]} deleteFromBasket={this.props.deleteFromBasket}/>
+      let item = <BasketItem 
+                    key={basketList.length} 
+                    name={key} 
+                    amount={this.props.basket[key][1]} 
+                    deleteFromBasket={this.props.deleteFromBasket}
+                    />
 			basketList.push(item);
 		}
 	}
-
-	console.log(this.props.basket)
 
     return (
 		
@@ -28,7 +31,7 @@ class Basket extends Component {
             <span>Количество</span>
           </div>
           <div className='basket_list_body'>
-			      {basketList}
+            {basketList}
           </div>
           <h3>Total: {this.props.basket.total}</h3>
         </div>

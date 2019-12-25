@@ -6,8 +6,9 @@ import { Button, Icon } from 'antd'
 
 import '../css/ItemMenu.css'
 
-function ItemMenu (props) {
-  const { logoUrl,  itemdata, addToBasket} = props;
+export function ItemMenu (props) {
+  const { logoUrl,  itemdata, addToBasket, ShowModal} = props;
+  const isOpenModal = itemdata.category === 'sandwiches';
 
   let [isHover, changeIsHover] = useState(false);
   let [amount, setAmount] = useState(1);
@@ -45,8 +46,15 @@ function ItemMenu (props) {
         className='item_menu_img' 
         alt='Item Img' 
       />
-      <div className='item_menu_name'>{nameItemMenu}</div>
-      <div className='item_menu_description'>{descriptionItemMenu}</div>
+
+      <div 
+        className={classNames('item_menu_name', {'underLine' : isOpenModal})}
+        onClick={ShowModal}
+      >
+        {nameItemMenu}
+      </div>
+
+      <div className='item_menu_description'  >{descriptionItemMenu}</div>
 
       <div>Цена: {priceItemMenu} руб.</div>
       <span>Количество</span>
@@ -69,7 +77,7 @@ function ItemMenu (props) {
       </div>
 
       <Button 
-        onClick={() => { addToBasket(nameItemMenu, +amount, +priceItemMenu) }}
+        onClick={() => { addToBasket(nameItemMenu, +amount, +priceItemMenu); setAmount(1) }}
       >
       В корзину
       </Button>
@@ -77,5 +85,3 @@ function ItemMenu (props) {
 
   )
 }
-
-export default ItemMenu

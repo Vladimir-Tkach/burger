@@ -1,23 +1,34 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import { ItemMenu } from './ItemMenu'
+import { Modal } from 'antd'
 
 import '../css/Content.css'
-import ItemMenu from './ItemMenu'
+import '../css/Modal.css'
 
-function Content (props) {
+export function Content (props) {
 
   const { category, basket, addToBasket } = props;
 
   let [menu, setMenu] = useState([]);
   let [markets, setMarkets] = useState({});
+  let [isShowModal, changeIsShowModal] = useState(false);
 
-  useEffect(() =>{
-    axios.get('./json/data.json')
-      .then(response => {
-        setMenu(response.data.menu);
-        setMarkets(response.data.markets);
+  useEffect(() => {
+     fetch('./json/data.json', {
+        method: 'GET'
       })
+      .then(data => {
+        return data.json();
+      })
+      .then(data => {
+        setMenu(data.menu);
+        setMarkets(data.markets);
+      })
+      .catch(e => {
+        console.log(e);
+      })
+      
   }, [])
 
 
@@ -26,7 +37,7 @@ function Content (props) {
     let result = [];
 
     newCategory.map((item, index) => {
-      
+
       let logoUrl = item.market === 'subway' ? 
         markets.subway.image : item.market === 'sfc' ? 
         markets.sfc.image : item.market === 'doner' ? 
@@ -38,6 +49,7 @@ function Content (props) {
         logoUrl={logoUrl}
         basket={basket}
         addToBasket={addToBasket}
+        ShowModal={ShowModal}
       />)
 
     })
@@ -45,11 +57,23 @@ function Content (props) {
     return result;
   }
 
+  function ShowModal(){
+    changeIsShowModal(true);
+  }
+
   return (
     <div className='content_wrapper'>
       {cartsProducts()}
+      <Modal
+          title="20px to Top"
+          centered
+          visible={isShowModal}
+          onCancel={() => changeIsShowModal(false)}
+        >
+          <p>some contents...</p>
+          <p>some contents...</p>
+          <p>some contents...</p>
+        </Modal>
     </div>
   )
 }
-
-export default Content

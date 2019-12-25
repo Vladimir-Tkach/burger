@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import '../css/App.css'
 import MenuBlock from './Menu'
 import Basket from './Basket'
-import Content from './Content'
+import { Content } from './Content'
 
 class App extends Component {
   constructor (props) {

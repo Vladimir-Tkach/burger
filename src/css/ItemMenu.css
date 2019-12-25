@@ -29,6 +29,9 @@
     height: 20px;
     border-radius: 5px;
 }
+.item_hover{
+    background: rgba(137, 43, 226, 0.342);
+}
 /* .item_menu_selectAmount button{
     width: 30px;
     height: 30px;

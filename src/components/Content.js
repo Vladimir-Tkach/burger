@@ -1,51 +1,55 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 import '../css/Content.css'
 import ItemMenu from './ItemMenu'
 
-class Content extends Component {
-  constructor (props) {
-    super(props)
+function Content (props) {
 
-    this.state = {
-      menu: [],
-      markets: {},
-    }
-  }
+  const { category, basket, addToBasket } = props;
 
-  componentDidMount () {
+  let [menu, setMenu] = useState([]);
+  let [markets, setMarkets] = useState({});
+
+  useEffect(() =>{
     axios.get('./json/data.json')
       .then(response => {
-        const menu = response.data.menu;
-        const markets = response.data.markets;
-        this.setState({ menu, markets })
+        setMenu(response.data.menu);
+        setMarkets(response.data.markets);
       })
-  }
+  }, [])
 
-  render () {
-    const category = this.state.menu.filter(item => item.category === this.props.category)
 
-    const items = category.map((item, index) => {
-    const logoUrl = item.market === 'subway' ? this.state.markets.subway.image : item.market === 'sfc' ? this.state.markets.sfc.image : item.market === 'doner' ? this.state.markets.doner.image : '';
-      return (
-        <ItemMenu
-          key={index}
-          itemdata={item}
-          logoUrl={logoUrl}
-          basket={this.props.basket}
-          addToBasket={this.props.addToBasket}
-        />
-      )
+  function cartsProducts () {
+    const newCategory = menu.filter(item => item.category === category)
+    let result = [];
+
+    newCategory.map((item, index) => {
+      
+      let logoUrl = item.market === 'subway' ? 
+        markets.subway.image : item.market === 'sfc' ? 
+        markets.sfc.image : item.market === 'doner' ? 
+        markets.doner.image : '';
+
+      result.push(<ItemMenu
+        key={index}
+        itemdata={item}
+        logoUrl={logoUrl}
+        basket={basket}
+        addToBasket={addToBasket}
+      />)
+
     })
 
-    return (
-      <div className='content_wrapper'>
-        {items}
-      </div>
-    )
+    return result;
   }
+
+  return (
+    <div className='content_wrapper'>
+      {cartsProducts()}
+    </div>
+  )
 }
 
 export default Content

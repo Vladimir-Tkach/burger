@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
+import classNames from 'classnames'
 import { Button, Icon } from 'antd'
 
 import '../css/ItemMenu.css'
@@ -8,6 +9,7 @@ import '../css/ItemMenu.css'
 function ItemMenu (props) {
   const { logoUrl,  itemdata, addToBasket} = props;
 
+  let [isHover, changeIsHover] = useState(false);
   let [amount, setAmount] = useState(1);
   let [logo, setlogo] = useState(logoUrl);
   let [imageItemMenu, setImageItemMenu] = useState(itemdata.image);
@@ -23,10 +25,26 @@ function ItemMenu (props) {
     setDescriptionItemMenu(itemdata.description);
   }, [logoUrl, itemdata.image, itemdata.name, itemdata.price, itemdata.description])
 
+  function changeHover() {
+    changeIsHover(!isHover);
+  }
+
   return (
-    <div className='item_menu_wrapper'>
-      <img src={logo} className={logo === '' ? 'hidden' : 'item_menu_logo'} title='Item Logo' alt='Item Logo'/>
-      <img src={imageItemMenu} className='item_menu_img' alt='Item Img' />
+    <div 
+      className={classNames('item_menu_wrapper', {item_hover: isHover} )} 
+      onMouseEnter={changeHover} 
+      onMouseLeave={changeHover} 
+    >
+      <img
+        src={logo} 
+        className={logo === '' ? 'hidden' : 'item_menu_logo'} 
+        title='Item Logo' alt='Item Logo'
+      />
+      <img 
+        src={imageItemMenu} 
+        className='item_menu_img' 
+        alt='Item Img' 
+      />
       <div className='item_menu_name'>{nameItemMenu}</div>
       <div className='item_menu_description'>{descriptionItemMenu}</div>
 
@@ -41,7 +59,7 @@ function ItemMenu (props) {
           <Icon type='plus' />
         </Button>
 
-        <input type="text" name="amount" id="input" value={amount} onChange={ e => { setAmount(e.target.value) } }/>
+        <input type="text" name="amount" id="input" value={amount}  onChange={ e => { setAmount(e.target.value) } }/>
 
         <Button 
           onClick={() => setAmount(--amount)} 

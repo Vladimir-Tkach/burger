@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { Menu } from 'antd'
 
-import '../css/Menu.css'
+import '../../css/Menu.css'
 
 export default function MenuBlock (props) {
 

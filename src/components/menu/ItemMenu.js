@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { Button, Icon } from 'antd'
 
-import '../css/ItemMenu.css'
+import '../../css/ItemMenu.css'
 
 export function ItemMenu (props) {
   const { logoUrl,  itemdata, addToBasket, ShowModal} = props;

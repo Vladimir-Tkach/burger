@@ -1,8 +1,8 @@
 /* eslint-disable no-prototype-builtins */
 import React, { useState } from 'react'
 
-import MenuBlock from './Menu'
-import Basket from './Basket'
+import MenuBlock from './menu/Menu'
+import Basket from './basket/Basket'
 import { Content } from './Content'
 import { MyProvider } from '../context/context'
 

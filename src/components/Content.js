@@ -2,8 +2,9 @@
 /* eslint-disable react/prop-types */
 import { Modal } from 'antd'
 import React, { useState, useEffect } from 'react'
-import { ModalContentWithCurrentFilling } from './ModalContentWithCurrentFilling'
-import { ModalTabs } from './ModalTabs'
+import { ModalContentWithCurrentFilling } from './modal/ModalContentWithCurrentFilling'
+import { ModalTabs } from './modal/ModalTabs'
+import { ModalPrevNextBtns } from './modal/ModalPrevNextBtns'
 import { CartsProducts } from './CartsProducs'
 
 import '../css/Content.css'
@@ -97,6 +98,10 @@ export function Content (props) {
           <ModalTabs
             changeCurrentFillingTypeOnClick={changeCurrentFillingTypeOnClick}
             allNamesFillngs={tabs} 
+          />
+          <ModalPrevNextBtns 
+            currentFillingType={currentFillingType}
+            allFillings={allFillings}
           />
           <ModalContentWithCurrentFilling
             currentFillingType={currentFillingType}

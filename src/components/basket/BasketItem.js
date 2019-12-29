@@ -2,7 +2,7 @@
 import { Button, Typography } from 'antd'
 import React from 'react'
 
-import '../css/BasketItem.css'
+import '../../css/BasketItem.css'
 
 export function BasketItem (props){
 

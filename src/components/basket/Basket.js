@@ -3,7 +3,7 @@ import React from 'react'
 import { Typography } from 'antd'
 
 import { BasketItem } from './BasketItem'
-import '../css/Basket.css'
+import '../../css/Basket.css'
 
 export default function Basket (props) {
 

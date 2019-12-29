@@ -1,80 +1,71 @@
 /* eslint-disable no-prototype-builtins */
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
-import '../css/App.css'
 import MenuBlock from './Menu'
 import Basket from './Basket'
 import { Content } from './Content'
+import { MyProvider } from '../context/context'
 
-class App extends Component {
-  constructor (props) {
-    super(props)
-    
-    this.state = {
-      json: {},
-      showCategory: 'pizza',
-      basket: {
-        total: 0,
-      }
-    }
+import '../css/App.css'
 
-  this.handleSwitcherCategory = this.handleSwitcherCategory.bind(this)
-	this.addToBasket = this.addToBasket.bind(this)
-	this.deleteFromBasket = this.deleteFromBasket.bind(this)
+export function App () {
+
+  const [showCategory, changeShowCategory] = useState('sandwiches');
+  const [basket, changeBasket] = useState({total: 0});
+
+  const state = {
+    showCategory,
+    basket,
   }
 
-  handleSwitcherCategory (nameCategory) {
-    this.setState({ showCategory: nameCategory })
+  function handleSwitcherCategory (nameCategory) {
+    changeShowCategory(nameCategory);
   }
 
-  addToBasket (nameProduct, amount, price) {
+  function addToBasket (nameProduct, amount, price) {
     let newbasketItem = {
       [nameProduct]: [nameProduct, amount, price],
-      total: +this.state.basket.total + +amount * +price
+      total: +state.basket.total + +amount * +price
     }
 
-    if(!this.state.basket.hasOwnProperty(nameProduct)){
-      let basket = {...this.state.basket, ...newbasketItem}
-      this.setState({ basket })
+    if(!state.basket.hasOwnProperty(nameProduct)){
+      changeBasket({...state.basket, ...newbasketItem});
     } else {
-      newbasketItem[nameProduct][1] = this.state.basket[nameProduct][1] + amount
-      let basket = {...this.state.basket, ...newbasketItem}
-      this.setState({ basket })
+      newbasketItem[nameProduct][1] = state.basket[nameProduct][1] + amount;
+      changeBasket({...state.basket, ...newbasketItem});
     }
   }
 
 
-  deleteFromBasket(nameProduct){
-    if(this.state.basket.hasOwnProperty(nameProduct)){
-      let amountOfDeletedItem = this.state.basket[nameProduct][1] * this.state.basket[nameProduct][2];
-      delete this.state.basket[nameProduct];
-      let basket = this.state.basket;
+  function deleteFromBasket(nameProduct){
+    if(basket.hasOwnProperty(nameProduct)){
+      let amountOfDeletedItem = state.basket[nameProduct][1] * state.basket[nameProduct][2];
+      delete state.basket[nameProduct];
+      let basket = state.basket;
       basket.total = basket.total - amountOfDeletedItem;
-      this.setState({ basket });
+      changeBasket({ ...basket });
     }
   }
 
 
-  render () {
-    return (
+  return (
+    <MyProvider value={state}>
       <div>
         <header className="header_title">
           <h1>Сделайте заказ на прямую из ресторана</h1>
         </header>
-        <div className="App">
-          <nav>
-            <MenuBlock handleSwitcherCategory = {this.handleSwitcherCategory} />
-            <Basket basket={this.state.basket} deleteFromBasket={this.deleteFromBasket}/>
-          </nav>
-          <Content
-            category={this.state.showCategory}
-            basket={this.state.basket}
-            addToBasket={this.addToBasket}
-          />
-        </div>
+          <div className="App">
+            <nav>
+              <MenuBlock handleSwitcherCategory = {handleSwitcherCategory} />
+              <Basket basket={state.basket} deleteFromBasket={deleteFromBasket}/>
+            </nav>
+            <Content
+              category={state.showCategory}
+              basket={state.basket}
+              addToBasket={addToBasket}
+            />
+          </div>
       </div>
-    )
-  }
+    </MyProvider>
+  )
 }
-
-export default App

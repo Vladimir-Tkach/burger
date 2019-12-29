@@ -11,7 +11,7 @@ export function ItemMenu (props) {
   const isOpenModal = itemdata.category === 'sandwiches';
 
   let [isHover, changeIsHover] = useState(false);
-  let [amount, setAmount] = useState(1);
+  let [amount, changeAmount] = useState(1);
   let [logo, setlogo] = useState(logoUrl);
   let [imageItemMenu, setImageItemMenu] = useState(itemdata.image);
   let [nameItemMenu, setNameItemMenu] = useState(itemdata.name);
@@ -28,6 +28,16 @@ export function ItemMenu (props) {
 
   function changeHover() {
     changeIsHover(!isHover);
+  }
+
+  function handleChangeAmount (type, value = 1) {
+    if(type === 'add') {
+      changeAmount(amount + +value);
+    } else if ( type === 'input' ) {
+      changeAmount(value);
+    } else if (type === 'sub' && amount > 0) {
+      changeAmount(amount - value);
+    }
   }
 
   return (
@@ -62,22 +72,22 @@ export function ItemMenu (props) {
       <div className='item_menu_selectAmount'>
         <Button 
           shape="circle"
-          onClick={() => setAmount(++amount)} 
+          onClick={() => handleChangeAmount('add', 1)} 
         >
           <Icon type='plus' />
         </Button>
 
-        <input type="text" name="amount" id="input" value={amount}  onChange={ e => { setAmount(e.target.value) } }/>
+        <input type="text" name="amount" id="input" value={amount}  onChange={ e => { handleChangeAmount('input', e.target.value) } }/>
 
         <Button 
-          onClick={() => setAmount(--amount)} 
+          onClick={() => handleChangeAmount('sub', 1)} 
         >
           <Icon type='minus'/>
         </Button>
       </div>
 
       <Button 
-        onClick={() => { addToBasket(nameItemMenu, +amount, +priceItemMenu); setAmount(1) }}
+        onClick={() => { addToBasket(nameItemMenu, +amount, +priceItemMenu); changeAmount(1) }}
       >
       В корзину
       </Button>

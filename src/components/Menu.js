@@ -4,7 +4,7 @@ import { Menu } from 'antd'
 
 import '../css/Menu.css'
 
-function MenuBlock (props) {
+export default function MenuBlock (props) {
 
   const { handleSwitcherCategory: onClick } = props;
 
@@ -72,5 +72,3 @@ function MenuBlock (props) {
 MenuBlock.propTypes = {
 	handleSwitcherCategory: propTypes.func.isRequired
 };
-
-export default MenuBlock

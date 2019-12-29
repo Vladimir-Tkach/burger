@@ -1,43 +1,60 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react'
+import React from 'react'
+import { Typography } from 'antd'
 
-import BasketItem from './BasketItem'
+import { BasketItem } from './BasketItem'
 import '../css/Basket.css'
 
-class Basket extends Component {
+export default function Basket (props) {
 
-  render () {
-	let basketList = [];
+  const { basket, deleteFromBasket } = props;
+  
+  function BasketList () {
+    let list = [];
 
-	for (let key in this.props.basket){
-		if(key !== 'total'){
-      let item = <BasketItem 
-                    key={basketList.length} 
-                    name={key} 
-                    amount={this.props.basket[key][1]} 
-                    deleteFromBasket={this.props.deleteFromBasket}
-                    />
-			basketList.push(item);
-		}
-	}
+    for (let key in basket){
+      if(key !== 'total') {
+
+        list.push(
+          <BasketItem 
+            key={list.length} 
+            name={key} 
+            amount={basket[key][1]} 
+            deleteFromBasket={deleteFromBasket}
+          />
+        );
+
+      } else if (key === 'total' && basket[key] === 0) {
+
+        list.push(
+          <Typography.Title 
+            level={4}
+            key={list.length} 
+          >
+            Товара нет.
+          </Typography.Title>
+        );
+
+      }
+    }
+
+    return list;
+  }
 
     return (
-		
       <div className='basket_wrapper'>
         <h3>Корзина</h3>
         <div className='basket_list'>
           <div className='basket_list_header'>
             <span>Название</span>
-            <span>Количество</span>
+            <span>Кол-во</span>
           </div>
           <div className='basket_list_body'>
-            {basketList}
+            { BasketList() }
           </div>
-          <h3>Total: {this.props.basket.total}</h3>
+          <h3>Всего: { basket.total }</h3>
         </div>
       </div>
     )
-  }
 }
 
-export default Basket

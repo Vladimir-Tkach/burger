@@ -4,7 +4,7 @@ import React from 'react'
 
 import '../css/BasketItem.css'
 
-function BasketItem (props){
+export function BasketItem (props){
 
 	const { Title } = Typography;
 
@@ -12,11 +12,11 @@ function BasketItem (props){
 
 	return(
 		<div className='basket_list_item'>
-			<Title level={4}>{name}</Title>
-			<Title level={4}>{amount}</Title>
+			<Title level={4} style={{ width: '70%' }}>{name}</Title>
+			<Title level={4} style={{ width: '20%' }}>{amount}</Title>
 			<Button 
 				type='primary' 
-				size="large" 
+				size="small" 
 				onClick={() => deleteFromBasket(name)}
 				>delete
 			</Button>
@@ -24,5 +24,3 @@ function BasketItem (props){
 	)
 
 }
-
-export default BasketItem

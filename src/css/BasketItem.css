@@ -18,3 +18,8 @@
 .basket_list_item h4{
 	margin: .5rem 0;
 }
+
+.basket_list_item .ant-btn{
+	background: transparent;
+	border: transparent;
+}

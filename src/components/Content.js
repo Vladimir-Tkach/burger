@@ -1,78 +1,108 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react'
-import { ItemMenu } from './ItemMenu'
 import { Modal } from 'antd'
+import React, { useState, useEffect } from 'react'
+import { ModalContentWithCurrentFilling } from './ModalContentWithCurrentFilling'
+import { ModalTabs } from './ModalTabs'
+import { CartsProducts } from './CartsProducs'
 
 import '../css/Content.css'
 import '../css/Modal.css'
 
+const tabs = [
+  {
+    name: 'sizes',
+    title: 'Размер',
+  },
+  {
+    name: 'breads',
+    title: 'Хлеб',
+  },
+  {
+    name: 'vegetables',
+    title: 'Овощи',
+  },
+  {
+    name: 'sauces',
+    title: 'Соусы',
+  },
+  {
+    name: 'fillings',
+    title: 'Начинки',
+  },
+  {
+    name: 'finish',
+    title: 'Заказ',
+  }
+];
+
+
 export function Content (props) {
 
-  const { category, basket, addToBasket } = props;
-
-  let [menu, setMenu] = useState([]);
-  let [markets, setMarkets] = useState({});
-  let [isShowModal, changeIsShowModal] = useState(false);
+  const [menu, setMenu] = useState([]);
+  const [markets, setMarkets] = useState(undefined);
+  const [isShowModal, changeIsShowModal] = useState(false);
+  const [allFillings, setAllFillings] = useState({});
+  const [currentFillingType, changeCurrentFillingType] = useState('sizes');
 
   useEffect(() => {
-     fetch('./json/data.json', {
-        method: 'GET'
-      })
-      .then(data => {
-        return data.json();
-      })
-      .then(data => {
-        setMenu(data.menu);
-        setMarkets(data.markets);
-      })
-      .catch(e => {
-        console.log(e);
-      })
-      
+    setTimeout(() => {
+      fetch('./json/data.json', {
+         method: 'GET'
+       })
+       .then(data => {
+         return data.json();
+       })
+       .then(data => {
+         setMenu(data.menu);
+         setMarkets(data.markets);
+         setAllFillings({
+           sizes: Object.values(data.sizes),
+           breads: Object.values(data.breads),
+           vegetables: Object.values(data.vegetables),
+           sauces: Object.values(data.sauces),
+           fillings: Object.values(data.fillings)
+         })
+       })
+       .catch(e => {
+         console.log(e);
+       })
+    }, 500);
   }, [])
 
-
-  function cartsProducts () {
-    const newCategory = menu.filter(item => item.category === category)
-    let result = [];
-
-    newCategory.map((item, index) => {
-
-      let logoUrl = item.market === 'subway' ? 
-        markets.subway.image : item.market === 'sfc' ? 
-        markets.sfc.image : item.market === 'doner' ? 
-        markets.doner.image : '';
-
-      result.push(<ItemMenu
-        key={index}
-        itemdata={item}
-        logoUrl={logoUrl}
-        basket={basket}
-        addToBasket={addToBasket}
-        ShowModal={ShowModal}
-      />)
-
-    })
-
-    return result;
-  }
 
   function ShowModal(){
     changeIsShowModal(true);
   }
 
+  function changeCurrentFillingTypeOnClick (newType) {
+    changeCurrentFillingType(newType);
+  }
+
   return (
     <div className='content_wrapper'>
-      {cartsProducts()}
+      <CartsProducts 
+        menu={menu}
+        markets={markets}
+        ShowModal={ShowModal}
+        {...props}
+      />
+
       <Modal
-          title="20px to Top"
+          title="Select Fillings"
           centered
           visible={isShowModal}
           onCancel={() => changeIsShowModal(false)}
         >
-          <p>some contents...</p>
-          <p>some contents...</p>
-          <p>some contents...</p>
+          <ModalTabs
+            changeCurrentFillingTypeOnClick={changeCurrentFillingTypeOnClick}
+            allNamesFillngs={tabs} 
+          />
+          <ModalContentWithCurrentFilling
+            currentFillingType={currentFillingType}
+            allFillings={allFillings}
+          >
+          </ModalContentWithCurrentFilling>
         </Modal>
     </div>
   )

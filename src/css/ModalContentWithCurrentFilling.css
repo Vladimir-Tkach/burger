@@ -1,0 +1,11 @@
+.ant-modal .ModalContent-Cart .ant-btn{
+    position: relative;
+    width: 80px;
+    height: 30px;
+    color: black;
+    background: transparent;
+    border: 2px dashed violet;
+    z-index: 1;
+    cursor: pointer;
+    outline: none;
+}

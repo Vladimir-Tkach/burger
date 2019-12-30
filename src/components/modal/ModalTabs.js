@@ -1,17 +1,19 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { useContext } from 'react'
 import { Typography } from 'antd'
 
-export function ModalTabs (props) {
+import { MyContext } from '../../context/context'
 
-    const { allNamesFillngs, changeCurrentFillingTypeOnClick } = props;
+export function ModalTabs () {
 
-    const tabs = allNamesFillngs.map((item, index) => {
+    const context = useContext(MyContext);
+
+    const tabsList = context.tabs.map((item, index) => {
         return ( 
             <Typography.Title
                 level={4}
                 key={index}
-                onClick={() => changeCurrentFillingTypeOnClick(item.name)}    
+                onClick={() => context.changeCurrentFillingTypeOnClick(item.name, index)}    
             >
                 { item.title }
             </Typography.Title>
@@ -19,6 +21,6 @@ export function ModalTabs (props) {
     })
 
     return (
-        <div className='Modal-Tabs'>{tabs}</div>
+        <div className='Modal-Tabs'>{tabsList}</div>
     )
 }

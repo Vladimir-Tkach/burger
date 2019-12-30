@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 import MenuBlock from './menu/Menu'
 import Basket from './basket/Basket'
-import { Content } from './Content'
+import { Content } from './content/Content'
 import { MyProvider } from '../context/context'
 
 import '../css/App.css'

@@ -1,17 +1,16 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
-import { Modal } from 'antd'
 import React, { useState, useEffect } from 'react'
-import { ModalContentWithCurrentFilling } from './modal/ModalContentWithCurrentFilling'
-import { ModalTabs } from './modal/ModalTabs'
-import { ModalPrevNextBtns } from './modal/ModalPrevNextBtns'
-import { CartsProducts } from './CartsProducs'
 
-import '../css/Content.css'
-import '../css/Modal.css'
+import { CartsProducts } from '../cartProducs/CartsProducs'
+import { ModalWindow } from '../modal/ModalWindow'
+import { MyProvider } from '../../context/context'
+
+import '../../css/Content.css'
+import '../../css/Modal.css'
 
 const tabs = [
-  {
+  {    
     name: 'sizes',
     title: 'Размер',
   },
@@ -45,6 +44,18 @@ export function Content (props) {
   const [isShowModal, changeIsShowModal] = useState(false);
   const [allFillings, setAllFillings] = useState({});
   const [currentFillingType, changeCurrentFillingType] = useState('sizes');
+  const [currentTabNumber, changeCurrentTabNumber] = useState(0);
+
+  const ContentState = {
+    tabs,
+    isShowModal,
+    allFillings,
+    currentTabNumber,
+    changeIsShowModal,
+    currentFillingType,
+    changeCurrentTabNumber,
+    changeCurrentFillingTypeOnClick
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -76,39 +87,27 @@ export function Content (props) {
     changeIsShowModal(true);
   }
 
-  function changeCurrentFillingTypeOnClick (newType) {
+  function changeCurrentFillingTypeOnClick (newType, index = undefined) {
+    if(index){
+      changeCurrentTabNumber(index);
+    } 
     changeCurrentFillingType(newType);
   }
 
   return (
     <div className='content_wrapper'>
-      <CartsProducts 
-        menu={menu}
-        markets={markets}
-        ShowModal={ShowModal}
-        {...props}
-      />
-
-      <Modal
-          title="Select Fillings"
-          centered
-          visible={isShowModal}
-          onCancel={() => changeIsShowModal(false)}
-        >
-          <ModalTabs
-            changeCurrentFillingTypeOnClick={changeCurrentFillingTypeOnClick}
-            allNamesFillngs={tabs} 
-          />
-          <ModalPrevNextBtns 
-            currentFillingType={currentFillingType}
-            allFillings={allFillings}
-          />
-          <ModalContentWithCurrentFilling
-            currentFillingType={currentFillingType}
-            allFillings={allFillings}
-          >
-          </ModalContentWithCurrentFilling>
-        </Modal>
+      <MyProvider value={ContentState}>
+        <CartsProducts 
+          {...props}
+          menu={menu}
+          markets={markets}
+          ShowModal={ShowModal}
+        />
+        <ModalWindow 
+          isShowModal={isShowModal}
+          changeIsShowModal={changeIsShowModal}
+        />
+      </MyProvider>
     </div>
   )
 }

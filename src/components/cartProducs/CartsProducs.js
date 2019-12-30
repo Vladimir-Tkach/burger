@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ItemMenu } from './menu/ItemMenu'
+import { ItemMenu } from '../menu/ItemMenu'
 
 
 export function CartsProducts (props) {

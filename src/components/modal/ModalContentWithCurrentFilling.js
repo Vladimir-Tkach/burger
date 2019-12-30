@@ -1,16 +1,22 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
-import {  Card, Typography } from 'antd'
-import React from 'react'
+import React, { useContext } from 'react'
+import {  Card, Typography, Button } from 'antd'
 
-// import { MyContext } from '../context/context'
+import { MyContext } from '../../context/context'
 
-export function ModalContentWithCurrentFilling (props) {
-    const { currentFillingType, allFillings } = props;
+import '../../css/ModalContentWithCurrentFilling.css'
+
+export function ModalContentWithCurrentFilling () {
+
+    const context = useContext(MyContext);
+    const { currentFillingType, allFillings } = context;
 
     let body = allFillings[currentFillingType].map((item, index) => {
         return(
-            <div key={index}>
+            <div
+                className='ModalContent-Cart' 
+                key={index}>
                 <Card
                     hoverable
                     style={{ width: 140 }}
@@ -18,6 +24,9 @@ export function ModalContentWithCurrentFilling (props) {
                 >
                     <Typography.Title level={4}>{item.name}</Typography.Title>
                     <Typography.Title level={4}>Price: {item.price} </Typography.Title>
+                    <Button>
+                        Добавить
+                    </Button>
                     
                 </Card>
             </div>

@@ -6,28 +6,28 @@ import { BasketItem } from "./BasketItem";
 import "../../css/Basket.css";
 
 export default function Basket(props) {
-  const { basket, deleteFromBasket } = props;
+  const { basket, deleteFromBasket, totalBasket } = props;
 
   function BasketList() {
     let list = [];
 
-    for (let key in basket) {
-      if (key !== "total") {
+    if (basket.size !== 0) {
+      for (let key of basket) {
         list.push(
           <BasketItem
             key={list.length}
-            name={key}
-            amount={basket[key][1]}
+            name={key[0]}
+            amount={key[1].amount}
             deleteFromBasket={deleteFromBasket}
           />
         );
-      } else if (key === "total" && basket[key] === 0) {
-        list.push(
-          <Typography.Title level={4} key={list.length}>
-            Товара нет.
-          </Typography.Title>
-        );
       }
+    } else {
+      list.push(
+        <Typography.Title level={4} key={list.length}>
+          Товара нет.
+        </Typography.Title>
+      );
     }
 
     return list;
@@ -42,7 +42,7 @@ export default function Basket(props) {
           <span>Кол-во</span>
         </div>
         <div className="basket_list_body">{BasketList()}</div>
-        <h3>Всего: {basket.total}</h3>
+        <h3>Всего: {totalBasket}</h3>
       </div>
     </div>
   );

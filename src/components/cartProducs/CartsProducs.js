@@ -3,7 +3,7 @@ import React from "react";
 import { ItemMenu } from "../menu/ItemMenu";
 
 export function CartsProducts(props) {
-  const { category, basket, addToBasket, menu, markets, ShowModal } = props;
+  const { category, addToBasket, menu, markets } = props;
 
   let carts = [];
   let logoUrl = "";
@@ -27,9 +27,7 @@ export function CartsProducts(props) {
           index={index}
           itemdata={item}
           logoUrl={logoUrl}
-          basket={basket}
           addToBasket={addToBasket}
-          ShowModal={ShowModal}
         />
       );
       return true;

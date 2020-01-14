@@ -43,15 +43,19 @@ export function Content(props) {
   const [allFillings, setAllFillings] = useState({});
   const [currentFillingType, changeCurrentFillingType] = useState("sizes");
   const [currentTabNumber, changeCurrentTabNumber] = useState(0);
+  const [selectedProductForMadal, changeSelectedProductForMadal] = useState({});
 
   const ContentState = {
-    tabs,
     isShowModal,
+    ShowModal,
+    tabs,
     allFillings,
     currentTabNumber,
-    changeIsShowModal,
     currentFillingType,
+    selectedProductForMadal,
+    changeIsShowModal,
     changeCurrentTabNumber,
+    changeSelectedProductForMadal,
     changeCurrentFillingTypeOnClick
   };
 

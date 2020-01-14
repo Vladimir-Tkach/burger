@@ -12,7 +12,7 @@ export function ModalWindow(props) {
   return (
     <Modal
       centered
-      title="Select Fillings"
+      title="Выберите начинку"
       visible={isShowModal}
       onCancel={() => changeIsShowModal(false)}
     >

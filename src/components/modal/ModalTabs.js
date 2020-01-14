@@ -5,16 +5,14 @@ import { Typography } from "antd";
 import { MyContext } from "../../context/context";
 
 export function ModalTabs() {
-  const context = useContext(MyContext);
+  const { tabs, changeCurrentFillingTypeOnClick } = useContext(MyContext);
 
-  const tabsList = context.tabs.map((item, index) => {
+  const tabsList = tabs.map((item, index) => {
     return (
       <Typography.Title
         level={4}
         key={index}
-        onClick={() =>
-          context.changeCurrentFillingTypeOnClick(item.name, index)
-        }
+        onClick={() => changeCurrentFillingTypeOnClick(item.name, index)}
       >
         {item.title}
       </Typography.Title>

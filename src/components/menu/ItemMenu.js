@@ -1,13 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import classNames from "classnames";
 import { Button, Icon } from "antd";
 
 import "../../css/ItemMenu.css";
 
+import { MyContext } from "../../context/context";
+
 export function ItemMenu(props) {
-  const { logoUrl, itemdata, addToBasket, ShowModal, index } = props;
+  const { ShowModal, changeSelectedProductForMadal } = useContext(MyContext);
+  const { logoUrl, itemdata, addToBasket, index } = props;
   const isOpenModal = itemdata.category === "sandwiches";
 
   let [isHover, changeIsHover] = useState(false);
@@ -48,6 +51,11 @@ export function ItemMenu(props) {
     }
   }
 
+  function handleOpenModal() {
+    ShowModal();
+    changeSelectedProductForMadal(itemdata);
+  }
+
   return (
     <div
       className={classNames("item_menu_wrapper", { item_hover: isHover })}
@@ -64,7 +72,7 @@ export function ItemMenu(props) {
 
       <div
         className={classNames("item_menu_name", { underLine: isOpenModal })}
-        onClick={ShowModal}
+        onClick={handleOpenModal}
       >
         {nameItemMenu}
       </div>

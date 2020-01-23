@@ -1,16 +1,16 @@
-.menu_wrapper{
-    border: 2px solid red;
-    width: 100%;
-    max-height: 350px;
+.menu_wrapper {
+  border: 2px solid red;
+  width: 100%;
+  max-height: 350px;
 }
-.menu_wrapper ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.menu_wrapper ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-.menu_wrapper li{
-    color: black;
-    font-weight: 300;
-    padding: 10px;
-    cursor: pointer;
+.menu_wrapper li {
+  color: black;
+  font-weight: 300;
+  padding: 10px;
+  cursor: pointer;
 }

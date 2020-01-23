@@ -1,15 +1,15 @@
-.ant-modal .ModalPrevNextBtns{
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0 0;
+.ant-modal .ModalPrevNextBtns {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0 0;
 }
 
-.ant-modal .ModalPrevNextBtns .ant-btn{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    height: 30px;
-    width: 80px;
-    color: black;
-    z-index: 1;
+.ant-modal .ModalPrevNextBtns .ant-btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 30px;
+  width: 80px;
+  color: black;
+  z-index: 1;
 }

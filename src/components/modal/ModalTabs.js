@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from "react";
-import { Typography } from "antd";
+import React, { useContext } from 'react';
+import { Typography } from 'antd';
 
-import { MyContext } from "../../context/context";
+import { MyContext } from '../../context/context';
 
 export function ModalTabs() {
   const { tabs, changeCurrentFillingTypeOnClick } = useContext(MyContext);

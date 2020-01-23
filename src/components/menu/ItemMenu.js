@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect, useContext } from "react";
-import classNames from "classnames";
-import { Button, Icon } from "antd";
+import React, { useState, useEffect, useContext } from 'react';
+import classNames from 'classnames';
+import { Button, Icon } from 'antd';
 
-import "../../css/ItemMenu.css";
+import '../../css/ItemMenu.css';
 
-import { MyContext } from "../../context/context";
+import { MyContext } from '../../context/context';
 
 export function ItemMenu(props) {
   const { ShowModal, changeSelectedProductForMadal } = useContext(MyContext);
   const { logoUrl, itemdata, addToBasket, index } = props;
-  const isOpenModal = itemdata.category === "sandwiches";
+  const isOpenModal = itemdata.category === 'sandwiches';
 
   let [isHover, changeIsHover] = useState(false);
   let [amount, changeAmount] = useState(1);
@@ -19,9 +19,7 @@ export function ItemMenu(props) {
   let [imageItemMenu, setImageItemMenu] = useState(itemdata.image);
   let [nameItemMenu, setNameItemMenu] = useState(itemdata.name);
   let [priceItemMenu, setPriceItemMenu] = useState(itemdata.price);
-  let [descriptionItemMenu, setDescriptionItemMenu] = useState(
-    itemdata.description
-  );
+  let [descriptionItemMenu, setDescriptionItemMenu] = useState(itemdata.description);
 
   useEffect(() => {
     setlogo(logoUrl);
@@ -29,24 +27,18 @@ export function ItemMenu(props) {
     setNameItemMenu(itemdata.name);
     setPriceItemMenu(itemdata.price);
     setDescriptionItemMenu(itemdata.description);
-  }, [
-    logoUrl,
-    itemdata.image,
-    itemdata.name,
-    itemdata.price,
-    itemdata.description
-  ]);
+  }, [logoUrl, itemdata.image, itemdata.name, itemdata.price, itemdata.description]);
 
   function changeHover() {
     changeIsHover(!isHover);
   }
 
   function handleChangeAmount(type, value = 1) {
-    if (type === "add") {
+    if (type === 'add') {
       changeAmount(amount + +value);
-    } else if (type === "input") {
+    } else if (type === 'input') {
       changeAmount(value);
-    } else if (type === "sub" && amount > 0) {
+    } else if (type === 'sub' && amount > 0) {
       changeAmount(amount - value);
     }
   }
@@ -58,20 +50,20 @@ export function ItemMenu(props) {
 
   return (
     <div
-      className={classNames("item_menu_wrapper", { item_hover: isHover })}
+      className={classNames('item_menu_wrapper', { item_hover: isHover })}
       onMouseEnter={changeHover}
       onMouseLeave={changeHover}
     >
       <img
         src={logo}
-        className={logo === "" ? "hidden" : "item_menu_logo"}
+        className={logo === '' ? 'hidden' : 'item_menu_logo'}
         title="Item Logo"
         alt="Item Logo"
       />
       <img src={imageItemMenu} className="item_menu_img" alt="Item Img" />
 
       <div
-        className={classNames("item_menu_name", { underLine: isOpenModal })}
+        className={classNames('item_menu_name', { underLine: isOpenModal })}
         onClick={handleOpenModal}
       >
         {nameItemMenu}
@@ -83,7 +75,7 @@ export function ItemMenu(props) {
       <span>Количество</span>
 
       <div className="item_menu_selectAmount">
-        <Button shape="circle" onClick={() => handleChangeAmount("add", 1)}>
+        <Button shape="circle" onClick={() => handleChangeAmount('add', 1)}>
           <Icon type="plus" />
         </Button>
 
@@ -93,11 +85,11 @@ export function ItemMenu(props) {
           id={`input${index}`}
           value={amount}
           onChange={e => {
-            handleChangeAmount("input", e.target.value);
+            handleChangeAmount('input', e.target.value);
           }}
         />
 
-        <Button onClick={() => handleChangeAmount("sub", 1)}>
+        <Button onClick={() => handleChangeAmount('sub', 1)}>
           <Icon type="minus" />
         </Button>
       </div>

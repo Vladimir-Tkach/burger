@@ -1,20 +1,20 @@
 /* eslint-disable no-prototype-builtins */
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import MenuBlock from "./menu/Menu";
-import Basket from "./basket/Basket";
-import { Content } from "./content/Content";
-import { MyProvider } from "../context/context";
+import MenuBlock from './menu/Menu';
+import Basket from './basket/Basket';
+import { Content } from './content/Content';
+import { MyProvider } from '../context/context';
 
-import "../css/App.css";
+import '../css/App.css';
 
 export function App() {
-  const [showCategory, changeShowCategory] = useState("sandwiches");
+  const [showCategory, changeShowCategory] = useState('sandwiches');
   const [basket, changeBasket] = useState(new Map());
   const [totalBasket, changeTotalBasket] = useState(0);
   const state = {
     showCategory,
-    basket
+    basket,
   };
 
   function handleSwitcherCategory(nameCategory) {
@@ -58,11 +58,7 @@ export function App() {
               totalBasket={totalBasket}
             />
           </nav>
-          <Content
-            category={state.showCategory}
-            basket={state.basket}
-            addToBasket={addToBasket}
-          />
+          <Content category={state.showCategory} basket={state.basket} addToBasket={addToBasket} />
         </div>
       </div>
     </MyProvider>

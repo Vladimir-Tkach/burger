@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import React from "react";
-import { Typography } from "antd";
+import React from 'react';
+import { Typography } from 'antd';
 
-import { BasketItem } from "./BasketItem";
-import "../../css/Basket.css";
+import { BasketItem } from './BasketItem';
+import '../../css/Basket.css';
 
 export default function Basket(props) {
   const { basket, deleteFromBasket, totalBasket } = props;
@@ -19,14 +19,14 @@ export default function Basket(props) {
             name={key[0]}
             amount={key[1].amount}
             deleteFromBasket={deleteFromBasket}
-          />
+          />,
         );
       }
     } else {
       list.push(
         <Typography.Title level={4} key={list.length}>
           Товара нет.
-        </Typography.Title>
+        </Typography.Title>,
       );
     }
 

@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from "react";
-import { Button, Icon } from "antd";
+import React, { useContext } from 'react';
+import { Button, Icon } from 'antd';
 
-import { MyContext } from "../../context/context";
+import { MyContext } from '../../context/context';
 
-import "../../css/ModalPrevNextBtns.css";
+import '../../css/ModalPrevNextBtns.css';
 
 export function ModalPrevNextBtns() {
   const context = useContext(MyContext);
@@ -12,14 +12,14 @@ export function ModalPrevNextBtns() {
     currentTabNumber,
     changeCurrentTabNumber,
     tabs,
-    changeCurrentFillingTypeOnClick
+    changeCurrentFillingTypeOnClick,
   } = context;
 
   function handleSwitchTabs(type) {
-    if (type === "prev" && currentTabNumber > 0) {
+    if (type === 'prev' && currentTabNumber > 0) {
       changeCurrentFillingTypeOnClick(tabs[currentTabNumber - 1].name);
       changeCurrentTabNumber(currentTabNumber - 1);
-    } else if (type === "next" && currentTabNumber < 5) {
+    } else if (type === 'next' && currentTabNumber < 5) {
       changeCurrentFillingTypeOnClick(tabs[currentTabNumber + 1].name);
       changeCurrentTabNumber(currentTabNumber + 1);
     }
@@ -29,7 +29,7 @@ export function ModalPrevNextBtns() {
     <div className="ModalPrevNextBtns">
       <Button
         onClick={() => {
-          handleSwitchTabs("prev");
+          handleSwitchTabs('prev');
         }}
       >
         <Icon type="left" />
@@ -37,7 +37,7 @@ export function ModalPrevNextBtns() {
       </Button>
       <Button
         onClick={() => {
-          handleSwitchTabs("next");
+          handleSwitchTabs('next');
         }}
       >
         Next
